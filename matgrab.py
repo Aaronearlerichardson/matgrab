@@ -15,6 +15,9 @@ def mat2df(mat_file, var=None,filepath=None):
     if isinstance(mat_file,str):
         if os.path.isfile(mat_file):
             return mat2df(sio.loadmat(mat_file,simplify_cells=True),var,filepath=mat_file)
+    elif isinstance(mat_file, list):
+        if os.path.isfile(mat_file[0]):
+            return pd.concat([mat2df(mat,var) for mat in mat_file]).squeeze()
     elif isinstance(mat_file,dict):
         mat=mat_file
         if any("__" in i for i in list(mat)) or any("readme" in i for i in list(mat)):
@@ -39,27 +42,6 @@ def mat2df(mat_file, var=None,filepath=None):
                         for vname in vnames:
                             df_list.append(pd.DataFrame(mat[vname]).reset_index(drop=True))
             return pd.concat(df_list,axis=1).squeeze()
-            '''
-            elif any(i in mat.keys() for i in var):
-            #nindex = [i in mat.keys() for i in var]
-            #print(var[nindex.index(True)],list(set(var).intersection(mat.keys())))
-            for vname in list(set(var).intersection(mat.keys())):
-                vnames.append(vname)
-            try:
-                return pd.DataFrame(mat).filter(vnames) #end
-            except ValueError as e:
-                print(e)
-                df = pd.DataFrame(mat[vnames.pop(0)])  
-                for vname in vnames:
-                    df_new = pd.DataFrame(mat[vname])
-                    if df.shape[0] == df_new.shape[0]:
-                        print(df.shape[0])
-                        pd.merge(df,df_new[df_new.columns.difference(df.columns)],left_index=True,right_index=True,how='outer')
-                    else:
-                        print("{name} had to be skipped due to array size differences\n\
-                            {name} was {size1} rows and the previous arrays were {size2} rows".format(
-                                name=vname, size1=df_new.shape[0], size2=df.shape[0]))
-                return df.squeeze()'''
         else:
             raise ValueError("None of the vars {vars} were found in {file}".format(vars=var,file=filepath))
     elif isinstance(mat_file,list):

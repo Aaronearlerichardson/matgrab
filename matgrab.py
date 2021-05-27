@@ -42,8 +42,9 @@ def mat2df(mat_file, var=None,filepath=None):
         else:
             raise ValueError("None of the vars {vars} were found in {file}".format(vars=var,file=filepath))
     elif isinstance(mat_file,list):
-        if os.path.isfile(mat_file[0]):
-            return pd.concat([mat2df(mat,var) for mat in mat_file],axis=1).squeeze()
+        if not isinstance(mat_file[0],dict):
+            if os.path.isfile(mat_file[0]):
+                return pd.concat([mat2df(mat,var) for mat in mat_file],axis=1).squeeze()
         else:
             mat = pd.DataFrame(mat_file)
             return mat.filter(list(set(var).intersection(mat.columns.tolist()))).reset_index(drop=True).squeeze()

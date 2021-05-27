@@ -15,6 +15,9 @@ def mat2df(mat_file, var=None,filepath=None):
     if isinstance(mat_file,str):
         if os.path.isfile(mat_file):
             return mat2df(sio.loadmat(mat_file,simplify_cells=True),var,filepath=mat_file)
+        else:
+            print(mat_file +"is not a valid file path")
+            return
     elif isinstance(mat_file,dict):
         mat=mat_file
         if any("__" in i for i in list(mat)) or any("readme" in i for i in list(mat)):
@@ -42,7 +45,7 @@ def mat2df(mat_file, var=None,filepath=None):
         else:
             raise ValueError("None of the vars {vars} were found in {file}".format(vars=var,file=filepath))
     elif isinstance(mat_file,list):
-        if not isinstance(mat_file[0],dict):
+        if isinstance(mat_file[0],str):
             if os.path.isfile(mat_file[0]):
                 return pd.concat([mat2df(mat,var) for mat in mat_file],axis=1).squeeze()
         else:

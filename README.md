@@ -25,5 +25,5 @@ EEG.mat
 ```
 To retrieve the values from the above mat file, the command would be:
 ```
-matgrab.mat2df("EEG.mat",\["sub-D0048.anat.T1w","sub-D0048.anat.CT","sub-D0048.ieeg.channels","sub-D0048.ieeg.values"\])
+matgrab.mat2df("EEG.mat",["sub-D0048.anat.T1w","sub-D0048.anat.CT","sub-D0048.ieeg.channels","sub-D0048.ieeg.values"])
 ```

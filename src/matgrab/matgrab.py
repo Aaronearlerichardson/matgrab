@@ -15,6 +15,11 @@ def mat2df(mat_file, var=None,filepath=None):
     if isinstance(mat_file,str):
         if os.path.isfile(mat_file):
             return mat2df(sio.loadmat(mat_file,simplify_cells=True),var,filepath=mat_file)
+        elif os.path.isdir(mat_file):
+            df_list = []
+            for file in os.listdir(mat_file):
+                df_list.append(mat2df(file,var))
+            return pd.concat(df_list,axis=1).squeeze()
         else:
             print(mat_file +"is not a valid file path")
             return

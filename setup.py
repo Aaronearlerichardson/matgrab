@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="MatGrab-Aaronearlerichardson",
-    version="0.0.4",
+    name="matgrab",
+    version="0.0.1",
     author="Aaronearlerichardson",
     author_email="jakdaxter31@gmail.com",
     description="search and extract field names or variables from MATLAB .mat files and return a pandas Dataframe",

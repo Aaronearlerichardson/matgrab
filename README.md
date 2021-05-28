@@ -1,5 +1,12 @@
 # matgrab
-search and extract field names or variables from MATLAB .mat files and return a pandas Dataframe
+Search and extract field names or variables from MATLAB .mat files and return a pandas Dataframe
+
+# installation
+
+## PYPI
+```
+pip install matgrab
+```
 
 # usage
 
@@ -27,3 +34,4 @@ To retrieve the values from the above mat file, the command would be:
 ```
 matgrab.mat2df("EEG.mat",["sub-D0048.anat.T1w","sub-D0048.anat.CT","sub-D0048.ieeg.channels","sub-D0048.ieeg.values"])
 ```
+

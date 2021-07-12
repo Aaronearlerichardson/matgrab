@@ -67,6 +67,9 @@ def mat2df(mat_file, var=None, filepath=None):
                 return pd.concat([mat2df(mat, var_in) for mat in mat_file], axis=1).squeeze()
         else:
             mat = pd.DataFrame(mat_file)
-            return mat.filter(list(set(var).intersection(mat.columns.tolist()))).reset_index(drop=True).squeeze()
+            if var is None:
+                return mat.reset_index(drop=True).squeeze()
+            else:
+                return mat.filter(list(set(var).intersection(mat.columns.tolist()))).reset_index(drop=True).squeeze()
     elif isinstance(mat_file, np.ndarray):
         return pd.DataFrame(mat_file).squeeze()

@@ -21,14 +21,14 @@ VARS may be a string or list of strings that correspond to field names of desire
 if your desired data is nested within another named data structure or array, that structure name must proceed the desired variable separated by a "."
 ```
 EEG.mat
-├── dataset_description
-└── sub-D0048
-    ├── anat
-    │   ├── T1w
-    │   └── CT
-    └── ieeg
-        ├── channels
-        └── values
+├── dataset_description {string}
+└── sub-D0048 {struct}
+    ├── anat {struct}
+    │   ├── T1w {string}
+    │   └── CT {float}
+    └── ieeg {array}
+        ├── channels {column}
+        └── values {column}
 ```
 To retrieve the values from the above mat file, the command would be:
 ```

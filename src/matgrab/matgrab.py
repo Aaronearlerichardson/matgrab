@@ -14,8 +14,6 @@ def mat2df(mat_file, var=None, filepath=None):
     elif var is None:
         if isinstance(mat_file, dict):
             var = mat_file.keys()
-        elif not isinstance(mat_file, str):
-            raise TypeError("bad formatting " + type(mat_file))
 
     v_names = []
     # mat_file is a file path and var_list is a list of strings corresponding to structure field names
@@ -66,7 +64,7 @@ def mat2df(mat_file, var=None, filepath=None):
     elif isinstance(mat_file, list):
         if isinstance(mat_file[0], str):
             if os.path.isfile(mat_file[0]):
-                return pd.concat([mat2df(mat, var) for mat in mat_file], axis=1).squeeze()
+                return pd.concat([mat2df(mat, var_in) for mat in mat_file], axis=1).squeeze()
         else:
             mat = pd.DataFrame(mat_file)
             return mat.filter(list(set(var).intersection(mat.columns.tolist()))).reset_index(drop=True).squeeze()
